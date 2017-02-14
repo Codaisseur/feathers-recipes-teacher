@@ -22,11 +22,6 @@ const cookingStepSchema = new Schema({
   description: { type: String, required: true }
 });
 
-const userSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: 'user' },
-  name: { type: String, required: true }
-});
-
 const recipeSchema = new Schema({
   title: { type: String, required: true },
   summary: { type: String, required: true },
@@ -37,7 +32,7 @@ const recipeSchema = new Schema({
   cookingTime: { type: Number, required: false }, // in minutes
   ingredients: [ingredientSchema],
   cookingSteps: [cookingStepSchema],
-  likedBy: [ userSchema ],
+  likedBy: [ Schema.Types.ObjectId ],
   authorId: { type: Schema.Types.ObjectId, ref: 'user' },
   createdAt: { type: Date, 'default': Date.now },
   updatedAt: { type: Date, 'default': Date.now }
