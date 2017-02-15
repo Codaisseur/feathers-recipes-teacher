@@ -20,7 +20,6 @@ function isEmailQuery(hook, user) {
 }
 
 module.exports = function(hook) {
-  console.log('Running Cleanup Hook....')
   const currentUser = hook.params.user
 
   // √ for methods: find and get
@@ -33,7 +32,6 @@ module.exports = function(hook) {
       return cleanup(user, currentUser)
     })
   } else {
-    console.log(hook.data, hook.result)
     if (isAuthenticating(hook)) return hook // needed for auth/local requests
     hook.result = cleanup(hook.result, currentUser)
   }
