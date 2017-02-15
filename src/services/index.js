@@ -1,5 +1,5 @@
 'use strict';
-const ingredient = require('./ingredient');
+
 const recipe = require('./recipe');
 const authentication = require('./authentication');
 const user = require('./user');
@@ -13,5 +13,4 @@ module.exports = function() {
   app.configure(authentication);
   app.configure(user);
   app.configure(recipe);
-  app.configure(ingredient);
 };
