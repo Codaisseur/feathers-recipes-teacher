@@ -9,6 +9,7 @@ const common = require('feathers-hooks-common');
 const assignAuthor = require('./assign-author');
 // after hook: look up the user with the matching authorId in the users service and add it as 'author'
 const populateAuthor = common.populate('author', { service: 'users', field: 'authorId' });
+const populateLikes = common.populate('likes', { service: 'users', field: 'likedBy' })
 
 const makeLikeable = require('./make-likeable');
 
@@ -43,7 +44,8 @@ exports.before = {
 
 exports.after = {
   all: [
-    populateAuthor
+    populateAuthor,
+    populateLikes,
   ],
   find: [],
   get: [],

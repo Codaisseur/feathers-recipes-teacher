@@ -3,6 +3,7 @@
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
+const sanitize = require('./cleanup');
 
 exports.before = {
   all: [],
@@ -41,7 +42,10 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('password')],
+  all: [
+    hooks.remove('password'),
+    sanitize
+  ],
   find: [],
   get: [],
   create: [],

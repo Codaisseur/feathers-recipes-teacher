@@ -1,17 +1,21 @@
 'use strict'
 
+const errors = require('feathers-errors');
+
 module.exports = function(options) {
   return function(hook) {
-    console.log(hook.id, hook.data, hook.params.user);
     return hook.app.service('recipes').get(hook.id)
       .then((recipe) => {
-        if (recipe.authorId !== hook.params.user._id) {
-          console.log('Is not author, can only like/unlike');
+        if (hook.params.user._id !== recipe.authorId) {
+
+          if (hook.data.like === undefined) {
+            throw new errors.Forbidden('You must be the author to do that.');
+          }
+
           const action = hook.data.like ? '$addToSet' : '$pull';
           let data = {};
           data[action] = { likedBy: hook.params.user._id };
           hook.data = data;
-          console.log(hook.data);
         }
       })
   }
