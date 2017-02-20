@@ -3,7 +3,7 @@
 const feathers = require('feathers-client');
 const rest = require('feathers-rest/client');
 const superagent = require('superagent');
-const host = 'http://localhost:3030';
+const host = process.env.BASE_URL || 'http://localhost:3030';
 const app = feathers()
   .configure(feathers.hooks())
   .configure(feathers.authentication({
